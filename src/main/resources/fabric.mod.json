@@ -1,0 +1,29 @@
+{
+	"schemaVersion": 1,
+	"id": "btahammers",
+	"version": "${version}",
+	"name": "BTA Hammers",
+	"description": "Adds simple 3x3 and 5x5 mining hammers to Better than Adventure.",
+	"authors": [
+		"lunneya"
+	],
+	"contact": {
+		"homepage": "",
+		"sources": ""
+	},
+	"license": "CC0-1.0",
+	"environment": "*",
+	"entrypoints": {
+		"main": [
+			"lunneya.btahammers.BTAHammers"
+		]
+	},
+	"depends": {
+		"fabricloader": ">=${fabricloader}",
+		"minecraft": "*",
+		"java": ">=${java}"
+	},
+	"suggests": {
+		"modmenu": ">=${modmenu}"
+	}
+}
