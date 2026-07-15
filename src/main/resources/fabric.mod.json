@@ -21,7 +21,8 @@
 	"depends": {
 		"fabricloader": ">=${fabricloader}",
 		"minecraft": "*",
-		"java": ">=${java}"
+		"java": ">=${java}",
+		"halplibe": ">=${halplibe}"
 	},
 	"suggests": {
 		"modmenu": ">=${modmenu}"
