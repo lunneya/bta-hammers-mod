@@ -18,11 +18,13 @@ import turniplabs.halplibe.helper.RecipeBuilder;
 import net.minecraft.core.item.Items;
 
 import net.minecraft.core.data.registry.Registries;
+import lunneya.btahammers.item.ItemSaw;
 
 public class BTAHammers implements ModInitializer {
 
 	public static Item IRON_HAMMER;
 	public static Item DIAMOND_HAMMER;
+	public static Item IRON_SAW;
 
 	public static final String MOD_ID = HalpLibe.registerMod("btahammers", true);
 	public static final Logger LOGGER = LoggerFactory.getLogger(MOD_ID);
@@ -85,6 +87,26 @@ public class BTAHammers implements ModInitializer {
 				)
 		);
 
+		ItemModelDispatcher.getInstance().addDispatch(
+			new ItemModelStandard(IRON_SAW)
+				.setDisplayPos(
+					"firstperson_righthand",
+					ItemModelDispatcher.HANDHELD_FIRST_PERSON_RIGHT_HAND
+				)
+				.setDisplayPos(
+					"firstperson_lefthand",
+					ItemModelDispatcher.HANDHELD_FIRST_PERSON_LEFT_HAND
+				)
+				.setDisplayPos(
+					"thirdperson_righthand",
+					ItemModelDispatcher.HANDHELD_THIRD_PERSON_RIGHT_HAND
+				)
+				.setDisplayPos(
+					"thirdperson_lefthand",
+					ItemModelDispatcher.HANDHELD_THIRD_PERSON_LEFT_HAND
+				)
+		);
+
 		LOGGER.info("[BTA Hammers] Hammer model registered!");
 
 		// Регистрируем рецепт железного молота
@@ -109,6 +131,17 @@ public class BTAHammers implements ModInitializer {
 			.addInput('S', Items.STICK)
 			.create("diamond_hammer", DIAMOND_HAMMER.getDefaultStack());
 
+		// Железная пила
+		RecipeBuilder.Shaped(MOD_ID)
+			.setShape(
+				" II",
+				"ISI",
+				" S "
+			)
+			.addInput('I', Items.INGOT_IRON)
+			.addInput('S', Items.STICK)
+			.create("iron_saw", IRON_SAW.getDefaultStack());
+
 		// Сбрасываем кэш рецептов, чтобы BTA увидела новый рецепт
 		Registries.RECIPES.invalidateCaches();
 
@@ -132,6 +165,13 @@ public class BTAHammers implements ModInitializer {
 			20001,
 			ToolMaterial.diamond,
 			2
+		);
+
+		IRON_SAW = new ItemSaw(
+			"iron_saw",
+			MOD_ID + ":item/iron_saw",
+			20002,
+			ToolMaterial.iron
 		);
 
 		LOGGER.info("[BTA Hammers] Iron Hammer registered!");
