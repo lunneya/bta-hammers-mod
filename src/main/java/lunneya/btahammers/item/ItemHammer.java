@@ -16,13 +16,20 @@ import org.jetbrains.annotations.NotNull;
 
 public class ItemHammer extends ItemToolPickaxe {
 
+	// Радиус области разрушения:
+	// 1 = 3x3
+	// 2 = 5x5
+	private final int radius;
+
 	public ItemHammer(
 		@NotNull String name,
 		@NotNull String namespaceId,
 		int id,
-		@NotNull ToolMaterial toolMaterial
+		@NotNull ToolMaterial toolMaterial,
+		int radius
 	) {
 		super(name, namespaceId, id, toolMaterial);
+		this.radius = radius;
 	}
 
 	@Override
@@ -34,7 +41,7 @@ public class ItemHammer extends ItemToolPickaxe {
 		@NotNull TilePosc blockPos,
 		@NotNull Side side
 	) {
-		// Обычный износ инструмента — только один раз,
+		// Обычный износ инструмента — только один раз
 		// за центральный блок.
 		boolean result = super.onBlockDestroyed(
 			selfStack,
@@ -50,19 +57,19 @@ public class ItemHammer extends ItemToolPickaxe {
 			return result;
 		}
 
-		breakArea3x3(world, player, blockPos, side);
+		breakArea(world, player, blockPos, side);
 
 		return result;
 	}
 
-	private void breakArea3x3(
+	private void breakArea(
 		@NotNull World world,
 		@NotNull Player player,
 		@NotNull TilePosc center,
 		@NotNull Side side
 	) {
-		for (int a = -1; a <= 1; a++) {
-			for (int b = -1; b <= 1; b++) {
+		for (int a = -radius; a <= radius; a++) {
+			for (int b = -radius; b <= radius; b++) {
 
 				// Центральный блок уже сломан обычной механикой игры.
 				if (a == 0 && b == 0) {

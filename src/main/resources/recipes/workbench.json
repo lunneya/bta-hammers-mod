@@ -1,0 +1,28 @@
+//[
+//  {
+//    "name": "btahammers:workbench/iron_hammer",
+//    "type": "minecraft:crafting/shaped",
+//    "pattern": [
+//      "III",
+//      "ISI",
+//      " S "
+//    ],
+//    "symbols": [
+//      {
+//        "symbol": "I",
+//        "stack": {
+//          "id": "minecraft:item/ingot_iron"
+//        }
+//      },
+//      {
+//        "symbol": "S",
+//        "stack": {
+//          "id": "minecraft:item/stick"
+//        }
+//      }
+//    ],
+//    "result": {
+//      "id": "btahammers:item/iron_hammer"
+//    }
+//  }
+//]

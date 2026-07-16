@@ -22,7 +22,7 @@ import net.minecraft.core.data.registry.Registries;
 public class BTAHammers implements ModInitializer {
 
 	public static Item IRON_HAMMER;
-
+	public static Item DIAMOND_HAMMER;
 
 	public static final String MOD_ID = HalpLibe.registerMod("btahammers", true);
 	public static final Logger LOGGER = LoggerFactory.getLogger(MOD_ID);
@@ -65,9 +65,29 @@ public class BTAHammers implements ModInitializer {
 				)
 		);
 
+		ItemModelDispatcher.getInstance().addDispatch(
+			new ItemModelStandard(DIAMOND_HAMMER)
+				.setDisplayPos(
+					"firstperson_righthand",
+					ItemModelDispatcher.HANDHELD_FIRST_PERSON_RIGHT_HAND
+				)
+				.setDisplayPos(
+					"firstperson_lefthand",
+					ItemModelDispatcher.HANDHELD_FIRST_PERSON_LEFT_HAND
+				)
+				.setDisplayPos(
+					"thirdperson_righthand",
+					ItemModelDispatcher.HANDHELD_THIRD_PERSON_RIGHT_HAND
+				)
+				.setDisplayPos(
+					"thirdperson_lefthand",
+					ItemModelDispatcher.HANDHELD_THIRD_PERSON_LEFT_HAND
+				)
+		);
+
 		LOGGER.info("[BTA Hammers] Hammer model registered!");
 
-		// Регистрируем рецепт молота
+		// Регистрируем рецепт железного молота
 		RecipeBuilder.Shaped(MOD_ID)
 			.setShape(
 				"III",
@@ -77,6 +97,17 @@ public class BTAHammers implements ModInitializer {
 			.addInput('I', Items.INGOT_IRON)
 			.addInput('S', Items.STICK)
 			.create("iron_hammer", IRON_HAMMER.getDefaultStack());
+
+		// Алмазный молот
+		RecipeBuilder.Shaped(MOD_ID)
+			.setShape(
+				"DDD",
+				"DSD",
+				" S "
+			)
+			.addInput('D', Items.DIAMOND)
+			.addInput('S', Items.STICK)
+			.create("diamond_hammer", DIAMOND_HAMMER.getDefaultStack());
 
 		// Сбрасываем кэш рецептов, чтобы BTA увидела новый рецепт
 		Registries.RECIPES.invalidateCaches();
@@ -91,7 +122,16 @@ public class BTAHammers implements ModInitializer {
 			"iron_hammer",
 			MOD_ID + ":item/iron_hammer",
 			20000,
-			ToolMaterial.iron
+			ToolMaterial.iron,
+			1
+		);
+
+		DIAMOND_HAMMER = new ItemHammer(
+			"diamond_hammer",
+			MOD_ID + ":item/diamond_hammer",
+			20001,
+			ToolMaterial.diamond,
+			2
 		);
 
 		LOGGER.info("[BTA Hammers] Iron Hammer registered!");
