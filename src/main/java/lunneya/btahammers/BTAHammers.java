@@ -1,6 +1,7 @@
 package lunneya.btahammers;
 
 import net.fabricmc.api.ModInitializer;
+import net.minecraft.core.block.Blocks;
 import net.minecraft.core.item.material.ToolMaterial;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -19,12 +20,14 @@ import net.minecraft.core.item.Items;
 
 import net.minecraft.core.data.registry.Registries;
 import lunneya.btahammers.item.ItemSaw;
+import lunneya.btahammers.item.ItemExcavator;
 
 public class BTAHammers implements ModInitializer {
 
 	public static Item IRON_HAMMER;
 	public static Item DIAMOND_HAMMER;
 	public static Item IRON_SAW;
+	public static Item DIAMOND_EXCAVATOR;
 
 	public static final String MOD_ID = HalpLibe.registerMod("btahammers", true);
 	public static final Logger LOGGER = LoggerFactory.getLogger(MOD_ID);
@@ -107,6 +110,26 @@ public class BTAHammers implements ModInitializer {
 				)
 		);
 
+		ItemModelDispatcher.getInstance().addDispatch(
+			new ItemModelStandard(DIAMOND_EXCAVATOR)
+				.setDisplayPos(
+					"firstperson_righthand",
+					ItemModelDispatcher.HANDHELD_FIRST_PERSON_RIGHT_HAND
+				)
+				.setDisplayPos(
+					"firstperson_lefthand",
+					ItemModelDispatcher.HANDHELD_FIRST_PERSON_LEFT_HAND
+				)
+				.setDisplayPos(
+					"thirdperson_righthand",
+					ItemModelDispatcher.HANDHELD_THIRD_PERSON_RIGHT_HAND
+				)
+				.setDisplayPos(
+					"thirdperson_lefthand",
+					ItemModelDispatcher.HANDHELD_THIRD_PERSON_LEFT_HAND
+				)
+		);
+
 		LOGGER.info("[BTA Hammers] Hammer model registered!");
 
 		// Регистрируем рецепт железного молота
@@ -142,6 +165,22 @@ public class BTAHammers implements ModInitializer {
 			.addInput('S', Items.STICK)
 			.create("iron_saw", IRON_SAW.getDefaultStack());
 
+		// Экскаватор
+		RecipeBuilder.Shaped(MOD_ID)
+			.setShape(
+				"IDI",
+				"IDI",
+				" S "
+			)
+			.addInput('I', Blocks.BLOCK_IRON)
+			.addInput('D', Items.DIAMOND)
+			.addInput('S', Items.STICK)
+			.create(
+				"diamond_excavator",
+				DIAMOND_EXCAVATOR.getDefaultStack()
+			);
+
+
 		// Сбрасываем кэш рецептов, чтобы BTA увидела новый рецепт
 		Registries.RECIPES.invalidateCaches();
 
@@ -172,6 +211,13 @@ public class BTAHammers implements ModInitializer {
 			MOD_ID + ":item/iron_saw",
 			20002,
 			ToolMaterial.iron
+		);
+
+		DIAMOND_EXCAVATOR = new ItemExcavator(
+			"diamond_excavator",
+			MOD_ID + ":item/diamond_excavator",
+			20003,
+			ToolMaterial.diamond
 		);
 
 		LOGGER.info("[BTA Hammers] Iron Hammer registered!");
